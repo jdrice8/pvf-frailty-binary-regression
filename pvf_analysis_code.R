@@ -1,4 +1,3 @@
-library(statmod)
 library(BHH2)
 library(lme4)
 
