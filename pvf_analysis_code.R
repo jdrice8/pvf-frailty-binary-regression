@@ -101,7 +101,7 @@ pvf.fit <- optim(c(summary(gaussint.fit)$coef[,1],0,0),obs.logL,hessian=TRUE,
 	z=naive.fit$x,y=naive.fit$y,id=example.data[,1],
 	method='BFGS',control=list(trace=1,REPORT=1,fnscale=-1))
 
-# examine the results: left column is estimate, right column is standard error
+# examine the results
 naive.tab <- summary(naive.fit)$coef[,1:2]
 gaussint.tab <- summary(gaussint.fit)$coef[,1:2]
 pvf.tab <- head(cbind(pvf.fit$par,sqrt(diag(solve(-pvf.fit$hess)))),-2)
@@ -112,5 +112,8 @@ colnames(pvf.tab) <- colnames(discmix.tab) <- colnames(naive.tab)
 estimates <- cbind(naive.tab[,1],gaussint.tab[,1],pvf.tab[,1],discmix.tab[,1])
 stderrs <- cbind(naive.tab[,2],gaussint.tab[,2],pvf.tab[,2],discmix.tab[,2])
 colnames(estimates) <- colnames(stderrs) <- c('Naive','Gaussint','PVF','Discmix')
+
+# estimated regression coefficients for each method
 estimates 
+# estimated standard errors for each method
 stderrs
