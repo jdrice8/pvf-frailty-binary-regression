@@ -1,4 +1,4 @@
-> summary(naive.fit)$coef[,1:2]
+# Naive (no frailty)
                                Estimate Std. Error
 (Intercept)                 -0.19492820 0.09265235
 treat                       -1.94586617 0.20220945
@@ -15,7 +15,8 @@ treat:as.factor(timepoint)3  1.47120951 0.30341373
 treat:as.factor(timepoint)4  1.93987800 0.28684202
 treat:as.factor(timepoint)5  1.75230111 0.29534642
 treat:as.factor(timepoint)6  1.49449935 0.29224775
-> summary(gaussint.fit)$coef[,1:2]
+
+# Gaussian intercept
                                 Estimate Std. Error
 (Intercept)                 -0.204258771 0.16689744
 treat                       -2.821126637 0.27198943
@@ -32,8 +33,9 @@ treat:as.factor(timepoint)3  2.147068094 0.33883582
 treat:as.factor(timepoint)4  2.785812464 0.32628304
 treat:as.factor(timepoint)5  2.479117817 0.33163271
 treat:as.factor(timepoint)6  2.193972257 0.32822723
-> cbind(pvf.fit$par,sqrt(diag(solve(-pvf.fit$hess))))
-                                   [,1]       [,2]
+
+# PVF frailty
+                               Estimate Std. Error
 (Intercept)                  0.83620864 0.20968896
 treat                       -2.68122592 0.25981982
 as.factor(timepoint)2       -1.94289109 0.18584527
@@ -50,9 +52,10 @@ treat:as.factor(timepoint)4  2.68100050 0.31481772
 treat:as.factor(timepoint)5  2.46288865 0.32202673
 treat:as.factor(timepoint)6  2.14853081 0.31794412
 log(variance)                1.81388034 0.42649682
-logit(prob responder)       -0.87547725 0.16588509
-> cbind(discmix.fit$par,sqrt(diag(solve(discmix.fit$hess))))
-                                   [,1]       [,2]
+log(1+xi)                   -0.87547725 0.16588509
+
+# discrete mixture
+                               Estimate Std. Error
 (Intercept)                 -0.19767381 0.09010725
 treat                       -2.74272206 0.09250878
 as.factor(timepoint)2       -1.96995017 0.10747065
@@ -69,4 +72,4 @@ treat:as.factor(timepoint)4  2.73420843 0.15478682
 treat:as.factor(timepoint)5  2.50648416 0.10632712
 treat:as.factor(timepoint)6  2.20040420 0.22589410
 log(variance)                0.36906377 0.03363659
-log(1+xi)                    4.66361398 2.48491146
+logit(prob responder)        4.66361398 2.48491146
