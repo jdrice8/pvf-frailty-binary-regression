@@ -11,7 +11,7 @@ laplace.pvf <- function(x,sigma2,xi) {
 		#if(xi>0) print(exp(-rho)) else print(rho)
 		nu <- rho*xi
 	
-		if(sign(rho)==sign(xi)) L <- exp(-rho*(1-(nu/(nu+x))^xi)) else L <- rep(1,length(x)) 
+		if(sign(rho)==sign(xi)) L <- exp(-rho*(1-(nu/(nu+x))^xi)) else L <- rep(1,length(x)) #stop('rho and xi must have the same sign')
 	} else L <- laplace.gamma(x,sigma2=sigma2)
 	L
 }
@@ -92,7 +92,7 @@ gaussint.fit <- glmer(y ~ treat+as.factor(timepoint)+as.factor(race)+as.factor(e
 	family=binomial(link=cloglog))
 
 # fit the Gaussian intercept with discrete mixture model
-discmix.fit <- optim(c(summary(gaussint.fit)$coef[,1],0,0),exact.logL,hessian=TRUE,
+discmix.fit <- optim(c(summary(gaussint.fit)$coef[,1],0,5),exact.logL,hessian=TRUE,
 	x=naive.fit$x,y=naive.fit$y,id=example.data[,1],
 	method='BFGS',control=list(trace=1,REPORT=1,fnscale=1))
 
@@ -102,7 +102,15 @@ pvf.fit <- optim(c(summary(gaussint.fit)$coef[,1],0,0),obs.logL,hessian=TRUE,
 	method='BFGS',control=list(trace=1,REPORT=1,fnscale=-1))
 
 # examine the results: left column is estimate, right column is standard error
-summary(naive.fit)$coef[,1:2]
-summary(gaussint.fit)$coef[,1:2]
-cbind(pvf.fit$par,sqrt(diag(solve(-pvf.fit$hess))))
-cbind(discmix.fit$par,sqrt(diag(solve(discmix.fit$hess))))
+naive.tab <- summary(naive.fit)$coef[,1:2]
+gaussint.tab <- summary(gaussint.fit)$coef[,1:2]
+pvf.tab <- head(cbind(pvf.fit$par,sqrt(diag(solve(-pvf.fit$hess)))),-2)
+discmix.tab <- head(cbind(discmix.fit$par,sqrt(diag(solve(discmix.fit$hess)))),-2)
+
+colnames(pvf.tab) <- colnames(discmix.tab) <- colnames(naive.tab)
+
+estimates <- cbind(naive.tab[,1],gaussint.tab[,1],pvf.tab[,1],discmix.tab[,1])
+stderrs <- cbind(naive.tab[,2],gaussint.tab[,2],pvf.tab[,2],discmix.tab[,2])
+colnames(estimates) <- colnames(stderrs) <- c('Naive','Gaussint','PVF','Discmix')
+estimates 
+stderrs
