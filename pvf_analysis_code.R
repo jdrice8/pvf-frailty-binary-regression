@@ -84,11 +84,11 @@ exact.logL <- function(theta,y,x,id) {
 example.data <- read.csv(file='example_data.csv')
 
 # fit the model assuming no frailty
-naive.fit <- glm(y ~ treat+as.factor(timepoint)+race+edu+cent.age+treat:as.factor(timepoint), data=example.data,
+naive.fit <- glm(y ~ treat+as.factor(timepoint)+as.factor(race)+as.factor(edu)+cent.age+treat:as.factor(timepoint), data=example.data,
 	family=binomial(link=cloglog), x=TRUE,y=TRUE)
 
 # fit the Gaussian intercept model
-gaussint.fit <- glmer(y ~ treat+as.factor(timepoint)+race+edu+cent.age+treat:as.factor(timepoint)+(1|id), data=example.data,
+gaussint.fit <- glmer(y ~ treat+as.factor(timepoint)+as.factor(race)+as.factor(edu)+cent.age+treat:as.factor(timepoint)+(1|id), data=example.data,
 	family=binomial(link=cloglog))
 
 # fit the Gaussian intercept with discrete mixture model
