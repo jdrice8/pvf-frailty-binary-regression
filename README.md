@@ -1,7 +1,7 @@
 # pvf-frailty-binary-regression
 Example data set and R code for analysis using PVF frailty model
 
-This repository contains a CSV file with simulated data, R code for its analysis, and results (estimated parameters) in a Word file. 
+This repository contains a CSV file with simulated data, R code for its analysis, and results (estimated parameters) in a .txt file. 
 
 To perform the analysis, simply place the R file and the CSV in the same directory and run the R code. Required packages are lme4 (version 1.1-14) and BHH2 (version 2016.05.31). The version of R used to perform the analyses was 3.4.2.
 
