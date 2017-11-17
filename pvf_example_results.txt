@@ -49,8 +49,8 @@ treat:as.factor(timepoint)3  2.09263105 0.32846787
 treat:as.factor(timepoint)4  2.68100050 0.31481772
 treat:as.factor(timepoint)5  2.46288865 0.32202673
 treat:as.factor(timepoint)6  2.14853081 0.31794412
-                             1.81388034 0.42649682
-                            -0.87547725 0.16588509
+log(variance)                1.81388034 0.42649682
+logit(prob responder)       -0.87547725 0.16588509
 > cbind(discmix.fit$par,sqrt(diag(solve(discmix.fit$hess))))
                                    [,1]       [,2]
 (Intercept)                 -0.19767381 0.09010725
@@ -68,5 +68,5 @@ treat:as.factor(timepoint)3  2.15323737 0.12970472
 treat:as.factor(timepoint)4  2.73420843 0.15478682
 treat:as.factor(timepoint)5  2.50648416 0.10632712
 treat:as.factor(timepoint)6  2.20040420 0.22589410
-                             0.36906377 0.03363659
-                             4.66361398 2.48491146
+log(variance)                0.36906377 0.03363659
+log(1+xi)                    4.66361398 2.48491146
