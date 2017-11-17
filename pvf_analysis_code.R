@@ -100,7 +100,6 @@ discmix.fit <- optim(c(summary(gaussint.fit)$coef[,1],0,0),exact.logL,hessian=TR
 pvf.fit <- optim(c(summary(gaussint.fit)$coef[,1],0,0),obs.logL,hessian=TRUE,
 	z=naive.fit$x,y=naive.fit$y,id=example.data[,1],
 	method='BFGS',control=list(trace=1,REPORT=1,fnscale=-1))
-)
 
 # examine the results: left column is estimate, right column is standard error
 summary(naive.fit)$coef[,1:2]
