@@ -8,10 +8,8 @@ laplace.gamma <- function(x,sigma2) (1+sigma2*x)^(-1/sigma2)
 laplace.pvf <- function(x,sigma2,xi) {
 	if(xi!=0) {
 		rho <- (xi+1)/(xi*sigma2)
-		#if(xi>0) print(exp(-rho)) else print(rho)
-		nu <- rho*xi
-	
-		if(sign(rho)==sign(xi)) L <- exp(-rho*(1-(nu/(nu+x))^xi)) else L <- rep(1,length(x)) #stop('rho and xi must have the same sign')
+		nu <- rho*xi	
+		if(sign(rho)==sign(xi)) L <- exp(-rho*(1-(nu/(nu+x))^xi)) else L <- rep(1,length(x)) 
 	} else L <- laplace.gamma(x,sigma2=sigma2)
 	L
 }
@@ -70,7 +68,7 @@ exact.logL <- function(theta,y,x,id) {
 	phi <- tail(theta,1)
 	prodL <- function(u) {
 		out <- try(integrate(function(v) sapply(v,condtl.bern,y=u[,1],eta=exp(as.matrix(u[,2:dim(u)[2]]) %*% head(theta,-2)),tau=tau,phi=phi),0,Inf),silent=TRUE)
-		if(class(out)!='try-error') L <- out$val else L <- 1 #; print(out)}
+		if(class(out)!='try-error') L <- out$val else L <- 1 
 		L
 
 	}
